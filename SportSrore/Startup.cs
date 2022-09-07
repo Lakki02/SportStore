@@ -6,20 +6,30 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
-using SportSrore.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
+using SportStore.Models;
 
-namespace SportSrore
+namespace SportStore
 {
     public class Startup
     {
+        public Startup(IConfiguration configuration) => Configuration = configuration;
+        
+        
+        public IConfiguration Configuration { get; }
+        
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<IProductRepository, FakeProductRepository>();
+            
+            services.AddDbContext<ApplicationDbContext>(option =>
+                option.UseSqlServer(Configuration["Data:SportStoreProducts:ConnectionString"]));
+            
+            services.AddTransient<IProductRepository, EFProductRepository>();
             services.AddMvc(); //Добавляем сервисы MVC 
         }
 

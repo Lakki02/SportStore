@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SportSrore.Models;
+using SportStore.Models;
 
-namespace SportSrore.Controllers
+namespace SportStore.Controllers
 {
     public class ProductController : Controller
     {

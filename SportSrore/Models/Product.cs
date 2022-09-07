@@ -1,4 +1,4 @@
-﻿namespace SportSrore.Models
+﻿namespace SportStore.Models
 {
     public class Product
     {

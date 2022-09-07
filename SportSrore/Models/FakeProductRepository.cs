@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace SportSrore.Models
+namespace SportStore.Models
 {
     public class FakeProductRepository :IProductRepository
     {

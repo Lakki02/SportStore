@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SportSrore
+namespace SportStore
 {
     public class Program
     {
@@ -20,7 +20,9 @@ namespace SportSrore
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder.UseStartup<Startup>()
+                        .UseDefaultServiceProvider(option => 
+                            option.ValidateScopes = false).Build();
                 });
     }
 }

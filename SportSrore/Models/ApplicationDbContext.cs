@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.DependencyInjection;
-namespace SportSrore.Models
+namespace SportStore.Models
 {
     public class ApplicationDbContext : DbContext
     {

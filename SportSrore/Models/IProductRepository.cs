@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace SportSrore.Models
+namespace SportStore.Models
 {
     public interface IProductRepository
     {
