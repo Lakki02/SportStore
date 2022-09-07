@@ -16,7 +16,7 @@ namespace SportSrore.Controllers
             return View();
         }*/
 
-        public ViewResult list() => View(_repository.Productcs);
+        public ViewResult list() => View(_repository.Products);
 
     }
 }
