@@ -4,6 +4,6 @@ namespace SportSrore.Models
 {
     public interface IProductRepository
     {
-        IQueryable<Productcs> Productcs { get; }
+        IQueryable<Product> Productcs { get; }
     }
 }
