@@ -10,6 +10,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
+using SportSrore.Models;
 using SportStore.Models;
 
 namespace SportStore
@@ -72,6 +73,7 @@ namespace SportStore
             {
 
             });*/
+            SeedData.EnsurePopulated(app);
         }
     }
 }

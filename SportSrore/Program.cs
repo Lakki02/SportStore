@@ -22,7 +22,7 @@ namespace SportStore
                 {
                     webBuilder.UseStartup<Startup>()
                         .UseDefaultServiceProvider(option => 
-                            option.ValidateScopes = false).Build();
+                            option.ValidateScopes = false);
                 });
     }
 }
