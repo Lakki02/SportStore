@@ -29,7 +29,8 @@ namespace SportStore
             
             services.AddDbContext<ApplicationDbContext>(option =>
                 option.UseSqlServer(Configuration["Data:SportStoreProducts:ConnectionString"]));
-            
+            //Необходимо провести миграцию базы данных после этого 
+            //add-migration added_{Имя таблицы == имени DbSet в классе ApplicationDbConntext}
             services.AddTransient<IProductRepository, EFProductRepository>();
             services.AddMvc(); //Добавляем сервисы MVC 
         }

@@ -12,6 +12,9 @@ namespace SportSrore.Models
         {
             ApplicationDbContext context = app.ApplicationServices
                 .GetRequiredService<ApplicationDbContext>();
+
+            //Необходимо провести миграцию базы данных перед наполнением базы данных 
+            //add-migration added_{Имя таблицы == имени DbSet в классе ApplicationDbConntext}
             context.Database.Migrate();
             
             if (!context.Products.Any())
