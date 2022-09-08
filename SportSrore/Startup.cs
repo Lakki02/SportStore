@@ -45,8 +45,17 @@ namespace SportStore
 
             app.UseRouting(); //Использум систему шаршрутизации 
 
+
+
+            
+
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                    "pagination",
+                    "Products/Page{productPage}",
+                    new {Controller = "Product", action = "List"});
+                
                 //endpoints.MapGet("/", async context =>
                 //{
                 //    await context.Response.WriteAsync("Hello World!");
@@ -54,6 +63,7 @@ namespace SportStore
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Product}/{action=List}/{id?}");
+               
             });
 
 
