@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Routing;
 using Moq;
 using SportSrore.Components;
 using SportSrore.Models;
@@ -41,7 +43,41 @@ namespace SportSore.Test
 
         }
 
-        
+        [Fact]
+        public void Indicates_selected_category()
+        {
+            //организация
+            string categoryToSelect = "Apples";
+
+            Mock<IProductRepository> mock = new Mock<IProductRepository>();
+            mock.Setup(m => m.Products).Returns((new Product[]
+            {
+                new Product {ProductID = 1, Name = "P1", Category = "Apples"},
+                new Product {ProductID = 4, Name = "P4", Category = "Oranges"}
+            }).AsQueryable<Product>());
+
+            NavigationMenuViewComponent target = 
+                new NavigationMenuViewComponent(mock.Object);
+
+            target.ViewComponentContext = new ViewComponentContext
+            {
+                ViewContext = new ViewContext
+                {
+                    RouteData = new RouteData()
+                }
+            };
+
+            target.RouteData.Values["category"] = categoryToSelect;
+
+
+            //Действие
+            string rusult = (string)(target.Invoke() as ViewViewComponentResult).ViewData["SelectedCategory"];
+
+            //Утверждение
+
+            Assert.Equal(categoryToSelect, rusult);
+
+        }
 
     }
 }
