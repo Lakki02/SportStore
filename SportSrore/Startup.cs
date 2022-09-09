@@ -21,18 +21,27 @@ namespace SportStore
         
         
         public IConfiguration Configuration { get; }
-        
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            
+
             services.AddDbContext<ApplicationDbContext>(option =>
                 option.UseSqlServer(Configuration["Data:SportStoreProducts:ConnectionString"]));
             //Необходимо провести миграцию базы данных после этого 
             //add-migration added_{Имя таблицы == имени DbSet в классе ApplicationDbConntext}
             services.AddTransient<IProductRepository, EFProductRepository>();
+            services.AddMemoryCache();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(10);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+            
             services.AddMvc(); //Добавляем сервисы MVC 
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,7 +54,7 @@ namespace SportStore
 
             app.UseRouting(); //Использум систему шаршрутизации 
 
-
+            app.UseSession();
 
             
 
