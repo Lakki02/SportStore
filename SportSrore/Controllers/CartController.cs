@@ -14,16 +14,19 @@ namespace SportSrore.Controllers
     {
         private IProductRepository _repository;
 
-        public CartController(IProductRepository repo)
+        private Cart _cart;
+
+        public CartController(IProductRepository repo, Cart cartService)
         {
             _repository = repo;
+            _cart = cartService;
         }
 
         public ViewResult Index(string returnUrl)
         {
             return View(new CartIndexViewModel
             {
-                Cart = GetCart(),
+                Cart = _cart,
                 ReturnUrl = returnUrl
             });
         }
@@ -35,9 +38,10 @@ namespace SportSrore.Controllers
 
             if (product != null)
             {
-                Cart cart = GetCart();
+                _cart.AddItem(product,1);
+                /*Cart cart = GetCart(); После использования служюы упрощение
                 cart.AddItem(product,1);
-                SaveCart(cart);
+                SaveCart(cart);*/
             }
             return RedirectToAction("Index", new {returnUrl});
         }
@@ -48,13 +52,14 @@ namespace SportSrore.Controllers
                 .FirstOrDefault(p => p.ProductID == productId);
             if (product != null)
             {
-                Cart cart = GetCart();
+                _cart.RemoveLine(product);
+                /*Cart cart = GetCart();
                 cart.RemoveLine(product);
-                SaveCart(cart);
+                SaveCart(cart);*/
             }
             return RedirectToAction("Index", new { returnUrl });
         }
-
+        /*
         private void SaveCart(Cart cart)
         {
             HttpContext.Session.SetJson("Cart", cart);
@@ -65,5 +70,6 @@ namespace SportSrore.Controllers
             Cart cart = HttpContext.Session.GetJson<Cart>("Cart") ?? new Cart();
             return cart;
         }
+        */
     }
 }

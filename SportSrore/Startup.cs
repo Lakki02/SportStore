@@ -32,6 +32,8 @@ namespace SportStore
             //Необходимо провести миграцию базы данных после этого 
             //add-migration added_{Имя таблицы == имени DbSet в классе ApplicationDbConntext}
             services.AddTransient<IProductRepository, EFProductRepository>();
+            services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddMemoryCache();
             services.AddSession(options =>
             {
