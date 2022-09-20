@@ -33,7 +33,7 @@ namespace SportStore
             services.AddDbContext<AppIdentityDbContext>(option => option.UseSqlServer(
                 Configuration["Data:SportStoreIdentity:ConnectionString"]));
             services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddEntityFrameworkStores<AppIdentityDbContext>()
                 .AddDefaultTokenProviders();
             //Необходимо провести миграцию базы данных после этого 
             //add-migration added_{Имя таблицы == имени DbSet в классе ApplicationDbConntext}
@@ -66,7 +66,8 @@ namespace SportStore
 
             app.UseSession();
 
-            app.UseAuthentication();
+            //app.UseAuthentication(); //ошибка
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
@@ -129,8 +130,8 @@ namespace SportStore
             {
 
             });*/
-            SeedData.EnsurePopulated(app);
-            IdentitySeedData.EnsurePopulated(app);
+           // SeedData.EnsurePopulated(app);
+            //IdentitySeedData.EnsurePopulated(app);
         }
     }
 }
