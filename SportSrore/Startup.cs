@@ -130,8 +130,8 @@ namespace SportStore
             {
 
             });*/
-           // SeedData.EnsurePopulated(app);
-            //IdentitySeedData.EnsurePopulated(app);
+            SeedData.EnsurePopulated(app);
+            IdentitySeedData.EnsurePopulated(app);
         }
     }
 }
