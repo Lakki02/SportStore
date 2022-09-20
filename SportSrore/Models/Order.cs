@@ -13,6 +13,8 @@ namespace SportSrore.Models
 
         [BindNever]
         public ICollection<CartLine> Lines { get; set; }
+
+        public bool Shipped { get; set; }
         
         [Required(ErrorMessage = "Please enter a name")]
         public string Name { get; set; }

@@ -35,5 +35,20 @@ namespace SportSrore.Controllers
                 return View(product);
             }
         }
+
+        public ViewResult Create() => View("Edit", new Product());
+
+        [HttpPost]
+        public IActionResult Delete(int productId)
+        {
+            Product deleteProduct = _repository.DeleteProduct(productId);
+
+            if(deleteProduct != null)
+            {
+                TempData["message"] = $"{deleteProduct.Name} was delete";
+            }
+            return RedirectToAction("Index");
+            
+        }
     }
 }
