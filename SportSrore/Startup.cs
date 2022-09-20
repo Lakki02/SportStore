@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using SportSrore.Models;
 using SportStore.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace SportStore
 {
@@ -29,8 +30,14 @@ namespace SportStore
 
             services.AddDbContext<ApplicationDbContext>(option =>
                 option.UseSqlServer(Configuration["Data:SportStoreProducts:ConnectionString"]));
+            services.AddDbContext<AppIdentityDbContext>(option => option.UseSqlServer(
+                Configuration["Data:SportStoreIdentity:ConnectionString"]));
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
             //Необходимо провести миграцию базы данных после этого 
             //add-migration added_{Имя таблицы == имени DbSet в классе ApplicationDbConntext}
+            //add-migration {Имя миграции} -context {Наименование контекста для нескольких баз данных}
             services.AddTransient<IProductRepository, EFProductRepository>();
             services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -59,7 +66,7 @@ namespace SportStore
 
             app.UseSession();
 
-            
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
@@ -123,6 +130,7 @@ namespace SportStore
 
             });*/
             SeedData.EnsurePopulated(app);
+            IdentitySeedData.EnsurePopulated(app);
         }
     }
 }

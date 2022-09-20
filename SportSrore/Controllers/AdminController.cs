@@ -2,9 +2,11 @@
 using SportSrore.Models;
 using SportStore.Models;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SportSrore.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
         private IProductRepository _repository;
