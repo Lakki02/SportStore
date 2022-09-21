@@ -21,6 +21,7 @@ namespace SportSrore.Controllers
             _signInManager = signInManager;
         }
 
+        //[HttpGet]
         [AllowAnonymous]
         public ViewResult Login(string returnUrl)
         {
@@ -41,10 +42,12 @@ namespace SportSrore.Controllers
                 if (user != null)
                 {
                     await _signInManager.SignOutAsync();
+
                     if ((await _signInManager.PasswordSignInAsync(user, loginModel.Password,
                         false, false)).Succeeded)
                     {
-                        return Redirect(loginModel?.ReturnUrl ?? "/Admin/index");
+                        return Redirect(loginModel?.ReturnUrl ?? "/Admin/Index");
+                        //return RedirectToAction("Index", "Admin");
                     }
                 }
             }

@@ -66,8 +66,18 @@ namespace SportStore
 
             app.UseSession();
 
-            //app.UseAuthentication(); //ошибка
+            //app.UseAuthentication();  и  app.UseAuthorization(); использывать вместе)))
+            //При указании одного app.UseAuthentication() выходит эксепшион
+            //app.UseAuthorization(); при указании только его одного не выполняется автариция
+            app.UseAuthentication(); 
             app.UseAuthorization();
+
+            //////////////
+            app.UseDeveloperExceptionPage();
+            app.UseStatusCodePages();
+            app.UseStaticFiles();
+            ////////////////////
+
 
             app.UseEndpoints(endpoints =>
             {
@@ -113,9 +123,7 @@ namespace SportStore
             });
 
 
-            app.UseDeveloperExceptionPage();
-            app.UseStatusCodePages();
-            app.UseStaticFiles();
+            
 
             // добавление компонентов mvc и определение маршрута
             //app.UseMvc(routes =>
